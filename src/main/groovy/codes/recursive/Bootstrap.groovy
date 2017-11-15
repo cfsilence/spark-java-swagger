@@ -18,9 +18,7 @@ import static spark.Spark.*
                 description = 'A Demo of Spark Java Using Swagger',
                 version = 'V1.0',
                 title = 'Spark Java Swagger Demo',
-                contact = @Contact(name = 'Serol',
-                url = 'http://recursive.codes'
-            )
+                contact = @Contact( name = 'Todd Sharp', url = 'http://recursive.codes' )
     ),
     schemes = [ SwaggerDefinition.Scheme.HTTP, SwaggerDefinition.Scheme.HTTPS ],
     consumes = [ 'application/json' ],
