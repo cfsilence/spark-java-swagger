@@ -19,8 +19,8 @@ dependencies {
     compile 'com.sparkjava:spark-core:2.7.0'
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'org.reflections:reflections:0.9.10'
-    compile 'io.swagger:swagger-core:1.5.8'
-    compile 'io.swagger:swagger-jaxrs:1.5.8'
+    compile 'io.swagger:swagger-core:1.5.16'
+    compile 'io.swagger:swagger-jaxrs:1.5.16'
     compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
 }
 

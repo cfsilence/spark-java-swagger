@@ -13,7 +13,7 @@ import javax.ws.rs.Produces
 import static spark.Spark.*
 
 @SwaggerDefinition(
-    host = 'localhost:9000',
+    host = 'localhost:9001',
     info = @Info(
                 description = 'A Demo of Spark Java Using Swagger',
                 version = 'V1.0',
@@ -28,35 +28,42 @@ import static spark.Spark.*
 class Bootstrap {
 
     static void main(String[] args) {
+
         staticFileLocation("/public")
         staticFiles.expireTime(10)
-        def svc = port(9000)
+        port(9001)
 
-        get "/hello", { req, res -> return Hello.hello(req, res)}
+        path "/user", {
+            get "/hello", { req, res -> return User.hello(req, res)}
+            get "/goodbye", { req, res -> return User.goodbye(req, res)}
+        }
 
-        get("/swagger", { req, res ->
-            return SwaggerParser.getSwaggerJson('codes.recursive')
-        })
+        get "/swagger", { req, res -> return SwaggerParser.getSwaggerJson('codes.recursive') }
 
     }
 
-    @Api
-    @Path('/hello')
-    @Produces('application/json')
-    class Hello {
-        @GET
-        @ApiOperation(value = 'Says hello to you', nickname='hello')
+    @Api(value = "/user", tags = ["User"], description = "User API")
+    @Path('/user')
+    class User {
+
+        @Path('/hello')
+        @ApiOperation(value = 'Says hello to you', nickname='hello', httpMethod='GET', produces='application/json')
         @ApiImplicitParams([
-            @ApiImplicitParam(
-                    name = 'name',
-                    paramType = 'query',
-                    required = true,
-                    dataType = 'string'
-            )
+            @ApiImplicitParam( name = 'name', paramType = 'query', required = true, dataType = 'string' )
         ])
         static def hello(@ApiParam(hidden=true) Request req, @ApiParam(hidden=true) Response res){
-            return JsonOutput.toJson([message: "Hello, ${req.queryParams('person')}"]);
+            return JsonOutput.toJson([message: "Hello, ${req.queryParams('name')}"])
         }
+
+        @Path('/goodbye')
+        @ApiOperation(value = 'Says goodbye to you', nickname='goodbye', httpMethod='GET', produces='application/json')
+        @ApiImplicitParams([
+            @ApiImplicitParam( name = 'name', paramType = 'query', required = true, dataType = 'string' )
+        ])
+        static def goodbye(@ApiParam(hidden=true) Request req, @ApiParam(hidden=true) Response res){
+            return JsonOutput.toJson([message: "Goodbye, ${req.queryParams('name')}"])
+        }
+
     }
 
 }

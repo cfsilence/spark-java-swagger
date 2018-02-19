@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.swagger.annotations.Api
 import io.swagger.jaxrs.Reader
 import io.swagger.jaxrs.config.BeanConfig
+import io.swagger.jaxrs.config.ReaderConfig
 import io.swagger.models.Swagger
 import org.reflections.Reflections
 
@@ -24,7 +25,6 @@ class SwaggerParser {
         beanConfig.setScan(true);
         beanConfig.scanAndRead();
         Swagger swagger = beanConfig.getSwagger();
-
         Reader reader = new Reader(swagger);
 
         Set<Class<?>> apiClasses = reflections.getTypesAnnotatedWith(Api.class);
