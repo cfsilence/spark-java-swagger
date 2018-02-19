@@ -6,9 +6,7 @@ import spark.Request
 import spark.Response
 import swagger.SwaggerParser
 
-import javax.ws.rs.GET
 import javax.ws.rs.Path
-import javax.ws.rs.Produces
 
 import static spark.Spark.*
 
